@@ -1,6 +1,7 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
+import Link from 'next/link'
 
 import style from "./style.module.scss";
 
@@ -13,9 +14,9 @@ const InfoBar = ({ room }) => {
         <h3>{nameCapitalized}</h3>
       </div>
       <div>
-        <a href="/">
+        <Link href="/" passHref>
           <FontAwesomeIcon className={style.iconClose} icon={faTimes} />
-        </a>
+        </Link>
       </div>
     </div>
   );
