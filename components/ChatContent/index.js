@@ -14,8 +14,8 @@ const ChatContent = () => {
   const [room, setRoom] = useState("");
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
-
-  const socket = io('http://localhost:3000/');
+  const url = process.env.NEXT_PUBLIC_URL
+  const socket = io(url);
 
   const router = useRouter()
 
@@ -35,7 +35,6 @@ const ChatContent = () => {
   }, [router.query]);
   
   useEffect(() => {
-    console.log('holiisss')
     socket.on(
       "message",
       (message) => {
