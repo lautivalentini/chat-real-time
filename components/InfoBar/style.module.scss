@@ -1,0 +1,27 @@
+.topInfoChat {
+  width: 100%;
+  background-color: var(--secondaryColor);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 10px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .containerLeft {
+    display: flex;
+    align-items: center;
+    h3 {
+      margin-left: 5px;
+      color: var(--textColor);
+    }
+    .iconOnline {
+      color: #00c615;
+      font-size: 8px;
+    }
+  }
+  .iconClose {
+    font-size: 13px;
+    color: var(--textColor);
+  }
+}

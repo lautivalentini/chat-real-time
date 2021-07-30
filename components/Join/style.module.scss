@@ -1,0 +1,77 @@
+@keyframes animationButton {
+  from {
+    background-color: var(--secondaryColor);
+  }
+  to {
+    border: 1px solid var(--secondaryColor);
+    color: var(--secondaryColor);
+    background-color: transparent;
+  }
+}
+
+@keyframes animationLabel {
+  from {
+    bottom: 20px;
+  }
+  to {
+    bottom: 50px;
+  }
+}
+
+.containerLogin {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .loginForm {
+    width: 85%;
+    max-width: 300px;
+    text-align: center;
+    h2 {
+      margin-bottom: 10px;
+    }
+    .containerInputLogin {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      .top { bottom: 50px; }
+      .bottom { bottom: 25px; }
+      label {
+        position: absolute;
+        left: 2px;
+        font-size: 14px;
+        font-weight: lighter;
+        color: var(--secondaryColor);
+      }
+      input {
+        border: none;
+        border-bottom: 1px solid var(--secondaryColor);
+        padding: 10px;
+        margin: 15px 0;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+  button {
+    cursor: pointer;
+    width: 100%;
+    border: 1px solid var(--secondaryColor);
+    background-color: var(--secondaryColor);
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-top: 10px;
+    &:hover {
+      animation: animationButton 1s linear;
+      animation-fill-mode: forwards;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
