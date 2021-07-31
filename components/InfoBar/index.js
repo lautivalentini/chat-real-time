@@ -5,13 +5,12 @@ import Link from 'next/link'
 
 import style from "./style.module.scss";
 
-const InfoBar = ({ room = '' }) => {
-  const nameCapitalized = room.charAt(0).toUpperCase() + room.slice(1);
+const InfoBar = () => {
   return (
     <div className={style.topInfoChat}>
       <div className={style.containerLeft}>
         <FontAwesomeIcon className={style.iconOnline} icon={faCircle} />
-        <h3>{nameCapitalized}</h3>
+        <h3>Online</h3>
       </div>
       <div>
         <Link href="/" passHref>
