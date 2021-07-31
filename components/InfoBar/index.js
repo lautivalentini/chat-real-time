@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import style from "./style.module.scss";
 
-const InfoBar = ({ room }) => {
+const InfoBar = ({ room = '' }) => {
   const nameCapitalized = room.charAt(0).toUpperCase() + room.slice(1);
   return (
     <div className={style.topInfoChat}>

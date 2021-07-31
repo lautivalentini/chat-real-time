@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router'
 
-import io from "socket.io-client";
+import SocketIOClient from "socket.io-client";
 
 import InfoBar from "../InfoBar";
 import Messages from "../Messages";
@@ -15,55 +15,67 @@ const ChatContent = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const url = process.env.NEXT_PUBLIC_URL
-  const socket = io(url);
 
   const router = useRouter()
 
   useEffect(() => {
+
     const { room, name } = router.query;
     setName(name);
     setRoom(room);
+
+    if (room === '' || name === '') router.push('/')
     
-    socket.emit("join", { name, room }, () => {});
-    
-    return () => {
-      socket.emit("off");
-      socket.off();
+    const socket = SocketIOClient.connect(url, {
+      path: "/api/socketio",
+    })
+
+    socket.on("message", (message) => {
+      messages.push(message)
+      setMessages([...messages]);
+    });
+
+    if (socket) return () => {
       router.push('/')
+      return socket.disconnect()
     };
+  }, [])
 
-  }, [router.query]);
-  
   useEffect(() => {
-    socket.on(
-      "message",
-      (message) => {
-        console.log(message)
-        setMessages(message)
-      },
-      [messages]
-    );
-  });
+    if (name !== '' && room !== '') joinRoom()
+  }, [name, room])
 
-  const sendMessage = (e) => {
+  const joinRoom = async (e) => {
+    await fetch("/api/join", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, room }),
+    });
+  }
+
+  const sendMessage = async (e) => {
     e.preventDefault();
 
-    if (message) {
-      socket.emit("sendMessage", message, name, () => {
-        setMessage("");
-      });
-    }
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, message }),
+    });
+
+    if (response.ok) setMessage("");
   };
 
   return (
     <div className={style.containerChat}>
-      {room && name !== '' && (
-        <div className={style.containerComponents}>
-          <InfoBar room={room} />
-          <Messages messages={messages} name={name} />
-          <Input sendMessage={sendMessage} setMessage={setMessage} message={message} />
+      <div className={style.containerComponents}>
+        <InfoBar room={room} />
+        <Messages messages={messages} name={name} />
+        <Input sendMessage={sendMessage} setMessage={setMessage} message={message} />
       </div>
-      )}
     </div>
   );
 };
