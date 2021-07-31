@@ -14,6 +14,7 @@ const ChatContent = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const url = process.env.NEXT_PUBLIC_URL
+  console.log('URL:', url)
 
   const router = useRouter()
 
