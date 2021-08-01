@@ -1,5 +1,3 @@
-Cliente de aplicación de chat en tiempo real desarollado con React.js y Socket.io
-
 ## Tecnologías utilizadas
 
 - Next.js
